@@ -44,8 +44,8 @@
                <div class="col-12">
                     <nav class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 p-2 start-0 end-0 mx-4">
                          <div class="container-fluid px-0">
-                              <a class="navbar-brand font-weight-bolder ms-sm-3 text-sm" href="https://demos.creative-tim.com/material-kit/index" rel="tooltip"
-                                   title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+                              <a class="navbar-brand font-weight-bolder ms-sm-3 text-sm" href="/" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom"
+                                   target="">
                                    New Era Education
                               </a>
                               <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
@@ -62,7 +62,7 @@
 
 
                                         <li class="nav-item ms-lg-auto">
-                                             <a class="nav-link nav-link-icon me-2" href="https://github.com/creativetimofficial/material-kit" target="_blank">
+                                             <a class="nav-link nav-link-icon me-2" href="#" target="_blank">
                                                   <i class="fa-solid fa-circle-info me-1"></i>
                                                   <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Về Chúng Tôi">Về Chúng Tôi
                                                   </p>

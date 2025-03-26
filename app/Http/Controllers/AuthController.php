@@ -63,4 +63,19 @@ class AuthController extends Controller
             'redirect' => route('dashboard'),
         ]);
     }
+
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        if ($request->wantsJson()) {
+            return response()->json(['status' => 'success', 'message' => 'Đã đăng xuất']);
+        }
+
+        return redirect()->route('auth.login.form');
+    }
 }

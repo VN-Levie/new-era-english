@@ -40,7 +40,7 @@
                                              </button>
                                         </div>
                                         <p class="mt-4 text-sm text-center">
-                                             Không có tài khoản? <a href="{{ route("register") }}" class="text-dark font-weight-bolder">Đăng ký</a>
+                                             Không có tài khoản? <a href="{{ route("auth.register.form") }}" class="text-dark font-weight-bolder">Đăng ký</a>
                                         </p>
                                    </form>
 
@@ -92,7 +92,7 @@
                          };
 
                          $.ajax({
-                              url: '{{ route("login") }}',
+                              url: '{{ route("auth.login.submit") }}',
                               type: 'POST',
                               data: data,
                               dataType: 'json',

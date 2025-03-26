@@ -68,11 +68,27 @@
                                                   </p>
                                              </a>
                                         </li>
-                                        <li class="nav-item my-auto ms-3 ms-lg-0">
+                                        @if (Route::has("auth.login.form"))
+                                             @auth
+                                                  <li class="nav-item my-auto ms-3 ms-lg-0">
+                                                       <button class="btn bg-gradient-danger mb-0 mt-2 mt-md-0" id="logout_btn">Đăng Xuất</button>
 
-                                             <a href="#" class="btn  bg-gradient-danger  mb-0 mt-2 mt-md-0">Đăng Nhập</a>
+                                                  </li>
+                                             @else
+                                                  <li class="nav-item my-auto ms-3 ms-lg-0 me-1">
 
-                                        </li>
+                                                       <a href="{{ route("auth.login.form") }}" class="btn  bg-gradient-success  mb-0 mt-2 mt-md-0">Đăng Nhập</a>
+
+                                                  </li>
+                                                  @if (Route::has("auth.register.form"))
+                                                       <li class="nav-item my-auto ms-3 ms-lg-0">
+
+                                                            <a href="{{ route("auth.register.form") }}" class="btn  bg-gradient-primary  mb-0 mt-2 mt-md-0">Đăng Ký</a>
+
+                                                       </li>
+                                                  @endif
+                                             @endauth
+                                        @endif
                                    </ul>
                               </div>
                          </div>
@@ -139,6 +155,26 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <script>
+          $("#logout_btn").click(function() {
+               Swal.fire({
+                    title: "Xác nhận",
+                    text: "Bạn có chắc muốn đăng xuất không?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Đăng xuất",
+                    cancelButtonText: "Huỷ"
+               }).then((result) => {
+                    if (result.isConfirmed) {
+                         $.post('{{ route("auth.logout") }}', {
+                              _token: $('meta[name="csrf-token"]').attr('content')
+                         }, function() {
+                              window.location.href = '{{ route("auth.login.form") }}';
+                         });
+                    }
+               });
+          });
+     </script>
      @stack("scripts")
 
 

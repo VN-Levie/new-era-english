@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,32 +18,40 @@ class AuthController extends Controller
         return view('auth.login');
     }
     //login
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        if (Auth::attempt($request->only('email', 'password'))) {
+        $login = $request->input('login');
+        $password = $request->input('password');
+
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+
+        if (Auth::attempt([$field => $login, 'password' => $password])) {
             return response()->json([
-                'success' => true,
+                'status' => 'success',
                 'message' => 'Đăng nhập thành công',
-                'redirect' => route('dashboard')
+                'redirect' => route('dashboard'),
             ]);
         }
 
         return response()->json([
-            'success' => false,
-            'message' => 'Email hoặc mật khẩu không đúng'
+            'status' => 'error',
+            'message' => 'Thông tin đăng nhập không chính xác',
         ], 401);
     }
+
+
 
     //showRegisterForm
     public function showRegisterForm()
     {
         return view('auth.register');
     }
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
 

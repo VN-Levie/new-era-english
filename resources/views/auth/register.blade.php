@@ -22,31 +22,23 @@
                               <div class="card-body">
                                    <form class="form-auth text-center" id="register_form" autocomplete="off" method="POST">
                                         <div class="input-group input-group-outline my-3">
-                                             <label class="form-label">
-                                                  Họ và tên
-                                             </label>
+                                             <label class="form-label">Họ và tên</label>
                                              <input type="text" class="form-control" name="name">
                                         </div>
                                         <div class="input-group input-group-outline my-3">
-                                             <label class="form-label">Email</label>
-                                             <input type="email" class="form-control" name="email">
+                                             <label class="form-label">SĐT hoặc Email</label>
+                                             <input type="text" class="form-control" name="contact">
                                         </div>
                                         <div class="input-group input-group-outline mb-3">
-                                             <label class="form-label">
-                                                  Mật khẩu
-                                             </label>
+                                             <label class="form-label">Mật khẩu</label>
                                              <input type="password" class="form-control" name="password">
                                         </div>
                                         <div class="input-group input-group-outline mb-3">
-                                             <label class="form-label">
-                                                  Nhập lại mật khẩu
-                                             </label>
-                                             <input type="password" class="form-control" name="re_password">
+                                             <label class="form-label">Nhập lại mật khẩu</label>
+                                             <input type="password" class="form-control" name="password_confirmation">
                                         </div>
-
-
                                         <div class="text-center">
-                                             <button class="btn bg-gradient-primary w-100 my-4 mb-2" type="submit" id="quat_btn">
+                                             <button class="btn bg-gradient-primary w-100 my-4 mb-2" type="submit" id="register_btn">
                                                   Đăng ký
                                              </button>
                                         </div>
@@ -54,6 +46,7 @@
                                              Đã có tài khoản? <a href="{{ route("login") }}" class="text-dark font-weight-bolder">Đăng nhập</a>
                                         </p>
                                    </form>
+
                               </div>
                          </div>
                     </div>
@@ -72,75 +65,88 @@
                     'Accept': 'application/json'
                }
           });
-          // --- ĐĂNG KÝ ---
+
           $("#register_form").validate({
-          rules: {
-               name: {
-                    required: true,
-                    maxlength: 255
-               },
-               email: {
-                    required: true,
-                    email: true
-               },
-               password: {
-                    required: true,
-                    minlength: 6
-               },
-               password_confirmation: {
-                    equalTo: '[name="password"]'
-               }
-          },
-          messages: {
-               name: {
-                    required: "Vui lòng nhập tên",
-                    maxlength: "Tên không được vượt quá 255 ký tự"
-               },
-               email: {
-                    required: "Vui lòng nhập email",
-                    email: "Email không đúng định dạng"
-               },
-               password: {
-                    required: "Vui lòng nhập mật khẩu",
-                    minlength: "Mật khẩu ít nhất 6 ký tự"
-               },
-               password_confirmation: {
-                    equalTo: "Xác nhận mật khẩu không khớp"
-               }
-          },
-          submitHandler: function(form) {
-               $(form).ajaxSubmit({
-                    url: '{{ route("register") }}',
-                    dataType: 'json',
-                    beforeSend: function() {
-                         $("#register_btn").html('<i class="fa fa-spinner fa-spin"></i> Đang xử lý...').prop('disabled', true);
+               rules: {
+                    name: {
+                         required: true,
+                         maxlength: 255
                     },
-                    success: function(data) {
-                         $("#register_btn").html('Đăng ký').prop('disabled', false);
-                         if (data.status === 'success') {
-                              Swal.fire("Thành công", data.message, "success").then(() => {
-                                   window.location.href = data.redirect;
-                              });
-                         } else {
-                              Swal.fire("Lỗi", data.message, "error");
-                         }
+                    contact: {
+                         required: true
                     },
-                    error: function(xhr) {
-                         $("#register_btn").html('Đăng ký').prop('disabled', false);
-                         if (xhr.status === 422) {
-                              let msg = '';
-                              $.each(xhr.responseJSON.errors, function(key, value) {
-                                   msg += value[0] + '\n';
-                              });
-                              Swal.fire("Lỗi", msg, "error");
-                         } else {
-                              Swal.fire("Lỗi", "Đăng ký thất bại!", "error");
-                         }
+                    password: {
+                         required: true,
+                         minlength: 6
+                    },
+                    password_confirmation: {
+                         equalTo: '[name="password"]'
                     }
-               });
-               return false;
-          }
-          });
+               },
+               messages: {
+                    name: {
+                         required: "Vui lòng nhập tên",
+                         maxlength: "Tên không được vượt quá 255 ký tự"
+                    },
+                    contact: {
+                         required: "Vui lòng nhập SĐT hoặc Email"
+                    },
+                    password: {
+                         required: "Vui lòng nhập mật khẩu",
+                         minlength: "Mật khẩu ít nhất 6 ký tự"
+                    },
+                    password_confirmation: {
+                         equalTo: "Xác nhận mật khẩu không khớp"
+                    }
+               },
+               submitHandler: function(form) {
+                    let contact = $('[name="contact"]').val().trim();
+                    let isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+                    let data = {
+                         name: $('[name="name"]').val(),
+                         password: $('[name="password"]').val(),
+                         password_confirmation: $('[name="password_confirmation"]').val()
+                    };
+
+                    if (isEmail) {
+                         data.email = contact;
+                    } else if (/^\d{9,12}$/.test(contact)) {
+                         data.phone = contact;
+                    } else {
+                         Swal.fire("Lỗi", "SĐT hoặc Email không hợp lệ", "error");
+                         return false;
+                    }
+
+                    $.ajax({
+                         url: '{{ route("register") }}',
+                         type: 'POST',
+                         data: data,
+                         dataType: 'json',
+                         beforeSend: function() {
+                              $("#register_btn").html('<i class="fa fa-spinner fa-spin"></i> Đang xử lý...').prop('disabled', true);
+                         },
+                         success: function(data) {
+                              $("#register_btn").html('Đăng ký').prop('disabled', false);
+                              if (data.status === 'success') {
+                                   Swal.fire("Thành công", data.message, "success").then(() => {
+                                        window.location.href = data.redirect;
+                                   });
+                              } else {
+                                   Swal.fire("Lỗi", data.message, "error");
+                              }
+                         },
+                         error: function(xhr) {
+                              $("#register_btn").html('Đăng ký').prop('disabled', false);
+                              let msg = 'Đăng ký thất bại!';
+                              if (xhr.status === 422) {
+                                   msg = Object.values(xhr.responseJSON.errors).map(err => err[0]).join("\n");
+                              }
+                              Swal.fire("Lỗi", msg, "error");
+                         }
+                    });
+
+                    return false;
+               }
           });
      </script>
 @endpush

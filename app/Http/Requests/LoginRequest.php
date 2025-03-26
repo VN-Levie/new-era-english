@@ -14,18 +14,17 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
-            'password' => ['required', 'min:6'],
+            'login' => 'required',
+            'password' => 'required|min:6',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required' => 'Bạn chưa nhập email',
-            'email.email' => 'Email không hợp lệ',
-            'password.required' => 'Bạn chưa nhập mật khẩu',
-            'password.min' => 'Mật khẩu phải ít nhất 6 ký tự',
+            'login.required' => 'Vui lòng nhập email hoặc số điện thoại',
+            'password.required' => 'Vui lòng nhập mật khẩu',
+            'password.min' => 'Mật khẩu ít nhất 6 ký tự',
         ];
     }
 }

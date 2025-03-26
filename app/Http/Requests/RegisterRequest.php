@@ -15,20 +15,31 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'nullable|email|unique:users,email',
+            'phone' => 'nullable|digits_between:9,12|unique:users,phone',
             'password' => 'required|string|min:6|confirmed',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if (!$this->email && !$this->phone) {
+                $validator->errors()->add('email', 'Vui lòng nhập email hoặc số điện thoại');
+                $validator->errors()->add('phone', 'Vui lòng nhập email hoặc số điện thoại');
+            }
+        });
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'Bạn chưa nhập tên',
-            'email.required' => 'Bạn chưa nhập email',
             'email.email' => 'Email không hợp lệ',
-            'email.unique' => 'Email đã tồn tại',
+            'email.unique' => 'Email đã được sử dụng',
+            'phone.digits_between' => 'Số điện thoại phải từ 9 đến 12 chữ số',
+            'phone.unique' => 'Số điện thoại đã được sử dụng',
             'password.required' => 'Bạn chưa nhập mật khẩu',
-            'password.min' => 'Mật khẩu phải ít nhất 6 ký tự',
+            'password.min' => 'Mật khẩu ít nhất 6 ký tự',
             'password.confirmed' => 'Xác nhận mật khẩu không khớp',
         ];
     }

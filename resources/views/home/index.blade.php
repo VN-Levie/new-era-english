@@ -133,7 +133,7 @@
                }
           }
           if (document.getElementById('state3')) {
-               const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+               const countUp2 = new CountUp('state3', new Date().getFullYear() - 2025 + 1);
                if (!countUp2.error) {
                     countUp2.start();
                } else {

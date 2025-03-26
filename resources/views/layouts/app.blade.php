@@ -28,8 +28,8 @@
      <!-- Navbar -->
      <div class="container position-sticky z-index-sticky top-0">
           <div class="row">
-               <div class="col-8">
-                    <nav class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 p-2 start-0 end-0 mx-4">
+               <div class="col-12">
+                    <nav class="navbar navbar-expand-lg blur opacity-9 border-radius-xl top-0 z-index-fixed shadow position-absolute my-2 p-2 start-0 end-0 mx-6">
                          <div class="container-fluid px-0">
                               <a class="navbar-brand font-weight-bolder ms-sm-3 text-sm" href="/" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom"
                                    target="">
@@ -57,37 +57,31 @@
                                              </a>
                                         </li>
                                         @if (Route::has("auth.login.form"))
-                                             @auth
-                                                  <li class="nav-item dropdown dropdown-hover mx-2">
-                                                       <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold" id="dropdownMenuPages" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <i class="material-symbols-rounded opacity-6 me-2 text-md">person</i>
+                                             <li class="nav-item dropdown dropdown-hover mx-2">
+                                                  <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold" id="dropdownMenuPages" data-bs-toggle="dropdown"
+                                                       aria-expanded="false">
+                                                       <i class="fa-solid fa-user me-2"></i>
 
-                                                            <span class="me-1">Tài Khoản</span>
-                                                            {{-- <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2"> --}}
-                                                            <i class="fa-solid fa-caret-down ms-auto arrow ms-auto ms-md-1"></i>
-                                                       </a>
+
+                                                       <span class="me-1">Tài Khoản</span>
+                                                       {{-- <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2"> --}}
+                                                       <i class="fa-solid fa-caret-down ms-auto arrow ms-auto ms-md-1"></i>
+                                                  </a>
+                                                  @auth
+
                                                        <div class="dropdown-menu dropdown-menu-animation ms-n1 dropdown-md p-3 border-radius-xl mt-0 mt-lg-1" aria-labelledby="dropdownMenuPages">
                                                             <div class="d-none d-lg-block">
                                                                  <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
-                                                                      Cá Nhân
+                                                                      Cá Nhân & Quản Trị
                                                                  </h6>
-                                                                 {{-- <a href="./pages/about-us.html" class="dropdown-item border-radius-md">
-                                                                      <span>About Us</span>
-                                                                 </a>
-                                                                 <a href="./pages/contact-us.html" class="dropdown-item border-radius-md">
-                                                                      <span>Contact Us</span>
-                                                                 </a> --}}
-                                                                 <a href="./pages/author.html" class="dropdown-item border-radius-md">
-                                                                      <span>Author</span>
-                                                                 </a>
                                                                  @if (Auth::user()->hasPermission("dashboard.access"))
                                                                       <a href="{{ route("dashboard") }}" class="dropdown-item border-radius-md">
-                                                                           <span>Quản Trị</span>
+                                                                           <i class="fa-solid fa-gears me-1"></i>
+                                                                           <span>Dashboard</span>
                                                                       </a>
                                                                  @endif
                                                                  <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
-                                                                      Thao Tác
+                                                                      Khác
                                                                  </h6>
                                                                  <a href="#" class="dropdown-item border-radius-md logout-btn">
                                                                       <span>Đăng Xuất</span>
@@ -95,40 +89,50 @@
                                                             </div>
                                                             <div class="d-lg-none">
                                                                  <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
-                                                                      Cá Nhân
+                                                                      Cá Nhân & Quản Trị
                                                                  </h6>
-                                                                 {{-- <a href="./pages/about-us.html" class="dropdown-item border-radius-md">
-                                                                      <span>About Us</span>
-                                                                 </a>
-                                                                 <a href="./pages/contact-us.html" class="dropdown-item border-radius-md">
-                                                                      <span>Contact Us</span>
-                                                                 </a> --}}
-                                                                 <a href="./pages/author.html" class="dropdown-item border-radius-md">
-                                                                      <span>Author</span>
-                                                                 </a>
+
+                                                                 @if (Auth::user()->hasPermission("dashboard.access"))
+                                                                      <a href="{{ route("dashboard") }}" class="dropdown-item border-radius-md">
+                                                                           <i class="fa-solid fa-gears me-1"></i>
+                                                                           <span>Dashboard</span>
+                                                                      </a>
+                                                                 @endif
+
                                                                  <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
-                                                                      Thao Tác
+                                                                      Khác
                                                                  </h6>
                                                                  <a href="#" class="dropdown-item border-radius-md logout-btn">
                                                                       <span>Đăng Xuất</span>
                                                                  </a>
                                                             </div>
                                                        </div>
-                                                  </li>
-                                             @else
-                                                  <li class="nav-item my-auto ms-3 ms-lg-0 me-1">
+                                                  @else
+                                                       <div class="dropdown-menu dropdown-menu-animation ms-n1 dropdown-md p-3 border-radius-xl mt-0 mt-lg-1" aria-labelledby="dropdownMenuPages">
+                                                            <div class="d-none d-lg-block">
+                                                                 <a href="{{ route("auth.login.form") }}" class="dropdown-item border-radius-md ">
+                                                                      <i class="fa-solid fa-user me-1"></i>
+                                                                      <span>Đăng Nhập</span>
+                                                                 </a>
+                                                                 <a href="{{ route("auth.register.form") }}" class="dropdown-item border-radius-md ">
+                                                                      <i class="fa-solid fa-user-plus me-1"></i>
+                                                                      <span>Đăng Ký</span>
+                                                                 </a>
 
-                                                       <a href="{{ route("auth.login.form") }}" class="btn  bg-gradient-success  mb-0 mt-2 mt-md-0">Đăng Nhập</a>
-
-                                                  </li>
-                                                  @if (Route::has("auth.register.form"))
-                                                       <li class="nav-item my-auto ms-3 ms-lg-0">
-
-                                                            <a href="{{ route("auth.register.form") }}" class="btn  bg-gradient-primary  mb-0 mt-2 mt-md-0">Đăng Ký</a>
-
-                                                       </li>
-                                                  @endif
-                                             @endauth
+                                                            </div>
+                                                            <div class="d-lg-none">
+                                                                 <a href="{{ route("auth.login.form") }}" class="dropdown-item border-radius-md">
+                                                                      <i class="fa-solid fa-user me-1"></i>
+                                                                      <span>Đăng Nhập</span>
+                                                                 </a>
+                                                                 <a href="{{ route("auth.register.form") }}" class="dropdown-item border-radius-md">
+                                                                      <i class="fa-solid fa-user-plus me-1"></i>
+                                                                      <span>Đăng Ký</span>
+                                                                 </a>
+                                                            </div>
+                                                       </div>
+                                                  @endauth
+                                             </li>
                                         @endif
                                    </ul>
                               </div>

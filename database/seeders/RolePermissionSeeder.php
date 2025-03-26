@@ -23,6 +23,9 @@ class RolePermissionSeeder extends Seeder
                 'student.manage',
                 'teacher.manage',
                 'class.manage',
+                'post.manage',
+                'contact.manage',
+                'faq.manage',
             ],
             'manager' => [
                 'score.view.any',
@@ -30,10 +33,13 @@ class RolePermissionSeeder extends Seeder
                 'student.manage',
                 'teacher.manage',
                 'class.manage',
+                'post.manage',
+                'faq.manage',
             ],
             'teacher' => [
                 'score.view.class',
                 'score.edit.student',
+                'contact.manage',
             ],
             'parent' => [
                 'score.view.children',

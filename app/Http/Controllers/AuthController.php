@@ -24,14 +24,16 @@ class AuthController extends Controller
         $password = $request->input('password');
 
         $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+        $remember = $request->boolean('remember');
 
-        if (Auth::attempt([$field => $login, 'password' => $password])) {
+        if (Auth::attempt([$field => $login, 'password' => $password], $remember)) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'Đăng nhập thành công',
                 'redirect' => route('dashboard'),
             ]);
         }
+
 
         return response()->json([
             'status' => 'error',

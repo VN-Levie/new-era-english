@@ -31,7 +31,7 @@
                                              <input type="password" class="form-control" name="password">
                                         </div>
                                         <div class="form-check form-switch d-flex align-items-center mb-3">
-                                             <input class="form-check-input" type="checkbox" id="rememberMe" name="remember">
+                                             <input class="form-check-input" type="checkbox" id="rememberMe" name="remember" checked>
                                              <label class="form-check-label mb-0 ms-3" for="rememberMe">Nhớ đăng nhập</label>
                                         </div>
                                         <div class="text-center">

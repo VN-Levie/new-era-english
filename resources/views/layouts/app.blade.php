@@ -10,29 +10,16 @@
      <link rel="icon" type="image/png" href="./assets/img/favicon.png">
 
      <title>@yield("title", "Home") | New Era Education</title>
-
-
-
      <!--     Fonts and icons     -->
      <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-
      <!-- Nucleo Icons -->
-     <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
-     <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
-
-
-
+     <link href="{{ asset("assets/css/nucleo-icons.css") }}" rel="stylesheet" />
+     <link href="{{ asset("assets/css/nucleo-svg.css") }}" rel="stylesheet" />
      <!-- Material Icons -->
      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-
      <!-- CSS Files -->
-
-
-
-     <link id="pagestyle" href="./assets/css/material-kit.css?v=3.1.0" rel="stylesheet" />
-
-
+     <link id="pagestyle" href="{{ asset("assets/css/material-kit.css?v=3.1.0") }}" rel="stylesheet" />
 </head>
 
 <body class="index-page bg-gray-200">
@@ -109,17 +96,8 @@
                                    <img src="{{ asset("/assets/img/logo.jpg") }}" class="mb-3 w-20 rounded-circle" alt="main_logo">
                               </a>
                               <h6 class="font-weight-bolder mb-4">New Era Education</h6>
-
-
                          </div>
-
                     </div>
-
-
-
-
-
-
                     <div class="col-12">
                          <div class="text-center">
                               <p class="text-dark my-4 text-sm font-weight-normal">

@@ -28,6 +28,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'post.manage',          'description' => 'Đăng bài viết'],
             ['name' => 'contact.manage',       'description' => 'Xem thông tin từ form liên hệ'],
             ['name' => 'faq.manage',           'description' => 'Sửa đổi FAQ'],
+            ['name' => 'dashboard.access',    'description' => 'Truy cập dashboard'],
         ];
 
         foreach ($permissions as $perm) {
